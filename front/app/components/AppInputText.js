@@ -7,7 +7,7 @@ function AppInputText({ iconName, iconColor, onChangeText, width = '100%', ...ot
     return (
         <View style={[styles.container, { width: width }]}>
             { iconName && <MaterialCommunityIcons  name={iconName} color={iconColor} size={30}/>}
-            <TextInput onChangeText={onChangeText} {...otherProps} style={styles.input}/>
+            <TextInput onChangeText={onChangeText} {...otherProps} style={styles.input} />
         </View>
     );
 }

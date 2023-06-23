@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Screen from "./Screen";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView } from "react-native";
 import * as Yup from "yup";
 import { Formik } from "formik";
 
@@ -29,15 +29,14 @@ function TokenListScreen({ navigation }) {
     const result = await tokensApi.fetchTokens(meterNumber);
     setLoading(false);
 
-    console.log(result.data);
-    // if (!result.ok) return setError(result.data.error);
+    if (!result.ok) return setError(result.data.error || 'Unexpected error occurred!');
     setTokens(result.data.purchasedTokens);
     
   };
 
   return (
     <Screen color={colors.PRIMARY}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.logoContainer}>
           <AppLogo font_size={32} />
           <Text
@@ -88,7 +87,7 @@ function TokenListScreen({ navigation }) {
             onPress={() => navigation.navigate("buy_electricity")}
           />
         </View>
-      </View>
+      </ScrollView>
     </Screen>
   );
 }

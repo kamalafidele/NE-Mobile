@@ -25,21 +25,6 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "b1ef0d25-232a-4667-ae3e-5f545cd35adc"
-      }
-    },
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./app/assets/favicon.png",
-          "color": "#ffffff"
-        }
-      ]
-    ],
-    "owner": "kamarafidele"
+    }
   }
 }

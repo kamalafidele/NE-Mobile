@@ -10,8 +10,8 @@ const endpointsFiles = ['./src/routes/index.js'];
 const doc = {
   info: {
     version: '1.0.0',
-    title: 'Starter API',
-    description: 'Starter backend API documentation',
+    title: 'EUCLElectro API',
+    description: 'EUCLElectro backend API documentation',
   },
   host: `${ENV_MODE === 'dev' ? `http://localhost:${PORT}` : HOST}`,
   basePath: '/api/v1/',
@@ -20,8 +20,8 @@ const doc = {
   produces: ['application/json'],
   tags: [
     {
-      name: 'User',
-      description: 'User authentication and authorization',
+      name: 'PurchasedToken',
+      description: 'Tokens',
     },
   ],
   securityDefinitions: {
@@ -32,13 +32,14 @@ const doc = {
     },
   },
   definitions: {
-    User: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@gmail.com',
-      password: 'john@123',
+    PurchasedToken: {
+      meter_number: '326323',
+      token: '84394344',
+      token_status: 'NEW',
+      token_value_days: 5,
+      amount: 500,
     },
   },
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then(() => console.log('docs generated'));
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => console.log('Finished generating docs'));

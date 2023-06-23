@@ -2,15 +2,15 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Starter API",
-    "description": "Starter backend API documentation"
+    "title": "EUCLElectro API",
+    "description": "EUCLElectro backend API documentation"
   },
   "host": "undefined",
   "basePath": "/api/v1/",
   "tags": [
     {
-      "name": "User",
-      "description": "User authentication and authorization"
+      "name": "PurchasedToken",
+      "description": "Tokens"
     }
   ],
   "schemes": [
@@ -31,7 +31,7 @@
     "application/json"
   ],
   "paths": {
-    "/tokens/token": {
+    "/tokens/generate-token": {
       "post": {
         "description": "",
         "parameters": [
@@ -63,27 +63,81 @@
           }
         }
       }
+    },
+    "/tokens/validate-token": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/tokens/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "meterNumber",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "User": {
+    "PurchasedToken": {
       "type": "object",
       "properties": {
-        "firstName": {
+        "meter_number": {
           "type": "string",
-          "example": "John"
+          "example": "326323"
         },
-        "lastName": {
+        "token": {
           "type": "string",
-          "example": "Doe"
+          "example": "84394344"
         },
-        "email": {
+        "token_status": {
           "type": "string",
-          "example": "johndoe@gmail.com"
+          "example": "NEW"
         },
-        "password": {
-          "type": "string",
-          "example": "john@123"
+        "token_value_days": {
+          "type": "number",
+          "example": 5
+        },
+        "amount": {
+          "type": "number",
+          "example": 500
         }
       }
     }

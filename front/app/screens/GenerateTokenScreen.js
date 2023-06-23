@@ -14,7 +14,7 @@ import ErrorMessage from "../components/ErrorMessage";
 
 const validationSchema = Yup.object().shape({
   meterNumber: Yup.string().required().min(6).max(6).label("Meter Number"),
-  amount: Yup.number().required().label("Amount"),
+  amount: Yup.number().required().min(100).label("Amount"),
 });
 
 function GenerateTokenScreen({ navigation }) {
@@ -29,9 +29,9 @@ function GenerateTokenScreen({ navigation }) {
     const result = await tokensApi.generateToken(meterNumber, amount);
     setLoading(false);
 
-    console.log(result.data);
-
-    if (!result.ok) return setError(result.data.status);
+    if (!result.ok) return setError(result.data.status || result.data.error || 'Unexpected error occurred!');
+    
+    setError(null);
     setToken(result.data.purchasedToken.token);
   };
 
@@ -74,8 +74,9 @@ function GenerateTokenScreen({ navigation }) {
                 iconName={"currency-usd"}
                 iconColor={colors.GRAY}
                 placeholder="Amount"
-                onBlur={() => setFieldTouched("amount")}
                 onChangeText={handleChange("amount")}
+                onBlur={() => setFieldTouched("amount")}
+                textContentType='oneTimeCode'
               />
               { touched.amount && <ErrorMessage>{ errors.amount }</ErrorMessage> }
               
@@ -85,7 +86,7 @@ function GenerateTokenScreen({ navigation }) {
         </Formik>
         <View>
           <Text>{ token && `This is the generated Token:`}</Text>
-          <Text style={{ color: colors.GREEN, fontSize: 28 }}>{ token && ` ${token}`}</Text>
+          <Text style={{ color: colors.GREEN, fontSize: 28 }} selectable={true}>{ token && ` ${token}`}</Text>
         </View>
         <Separator />
 

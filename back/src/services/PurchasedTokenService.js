@@ -31,9 +31,9 @@ class PurchasedTokenService {
     }
 
     static generateToken(amount) {
-        if (amount < 100) {
-            throw new Error('Amount should not be less than 100');
-          }
+        if (amount < 100) throw new Error('Amount should not be less than 100');
+
+        if (amount % 100 !== 0) throw new Error('Half days are not possible. Enter only amount of multiple 100');
         
           const maxDays = 365 * 5;
           const days = Math.floor(amount / 100); 
